@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080e1c">
+  <meta name="description" content="Explore Chinese universities, compare programs, and learn about admissions, scholarships, and study pathways for Bangladeshi students with China Academic World.">
+  <title>China Academic World | Study in China</title>
+  <style>
+    :root {
+      --bg: #080e1c;
+      --bg-soft: #0d172b;
+      --panel: #111e35;
+      --panel-2: #17253e;
+      --gold: #e7b51c;
+      --gold-light: #ffd75a;
+      --cyan: #20d3ef;
+      --text: #f5f7fb;
+      --muted: #a0aec2;
+      --line: rgba(255,255,255,.10);
+      --line-gold: rgba(231,181,28,.42);
+      --shadow: 0 22px 60px rgba(0,0,0,.25);
+      --radius: 24px;
+      --max: 1180px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body {
+      margin: 0;
+      color: var(--text);
+      background:
+        radial-gradient(circle at 95% 16%, rgba(132,58,30,.18), transparent 28rem),
+        radial-gradient(circle at 7% 47%, rgba(18,71,160,.16), transparent 32rem),
+        radial-gradient(circle at 70% 82%, rgba(0,145,164,.10), transparent 26rem),
+        var(--bg);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+    a { color: inherit; text-decoration: none; }
+    button, input, select { font: inherit; }
+    button, .btn { cursor: pointer; }
+    button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible {
+      outline: 3px solid var(--cyan); outline-offset: 3px;
+    }
+    .container { width: min(var(--max), calc(100% - 40px)); margin-inline: auto; }
+    .site-header {
+      position: sticky; top: 0; z-index: 20;
+      background: rgba(8,14,28,.91); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav { min-height: 78px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font: 700 clamp(1.15rem, 2.5vw, 1.65rem)/1.1 Georgia, "Times New Roman", serif; letter-spacing: -.04em; white-space: nowrap; }
+    .brand .gold { color: var(--gold); }
+    .nav-links { display: flex; align-items: center; gap: 24px; color: #d5dbea; font-size: .93rem; }
+    .nav-links a:hover { color: var(--gold-light); }
+    .nav-cta { white-space: nowrap; }
+    .menu-toggle { display: none; background: transparent; border: 1px solid var(--line); color: white; border-radius: 12px; padding: 8px 12px; }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+      border: 1px solid transparent; border-radius: 16px; padding: 13px 21px;
+      font-weight: 750; transition: transform .18s ease, background .18s ease, border-color .18s ease;
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .btn-gold { color: #111521; background: linear-gradient(135deg, #f2c52d, #d49b09); box-shadow: 0 12px 30px rgba(231,181,28,.18); }
+    .btn-outline { border-color: rgba(255,255,255,.22); color: white; background: rgba(255,255,255,.045); }
+    .btn-outline:hover { border-color: var(--gold); }
+    .btn-small { padding: 9px 13px; border-radius: 12px; font-size: .88rem; }
+    .hero { padding: 82px 0 64px; }
+    .hero-grid { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); align-items: center; gap: 46px; }
+    .eyebrow {
+      display: inline-flex; align-items: center; gap: 10px; color: var(--gold-light);
+      background: rgba(231,181,28,.10); border: 1px solid var(--line-gold);
+      border-radius: 999px; padding: 8px 15px; font-size: .78rem; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .12em;
+    }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font: 700 clamp(2.65rem, 5.7vw, 5.1rem)/1.05 Georgia, "Times New Roman", serif; letter-spacing: -.045em; margin: 24px 0; }
+    h1 .gold { color: var(--gold); }
+    .lead { color: var(--muted); font-size: clamp(1.05rem, 1.8vw, 1.25rem); max-width: 690px; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 28px; }
+    .hero-note { color: #9aa9bf; font-size: .84rem; margin-top: 18px; }
+    .hero-panel {
+      position: relative; overflow: hidden; border: 1px solid var(--line-gold); border-radius: 30px;
+      padding: 28px; background: linear-gradient(145deg, rgba(21,37,64,.98), rgba(13,24,43,.92));
+      box-shadow: var(--shadow);
+    }
+    .hero-panel:before { content:""; position:absolute; width:220px; height:220px; border-radius:50%; right:-80px; top:-100px; background:rgba(231,181,28,.13); filter:blur(2px); }
+    .panel-label { color: var(--gold-light); font-weight: 800; text-transform: uppercase; letter-spacing: .12em; font-size: .76rem; }
+    .hero-panel h2 { font: 700 1.65rem/1.2 Georgia, serif; margin: 12px 0 18px; position: relative; }
+    .stat-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; position: relative; }
+    .stat { padding: 16px; background: rgba(255,255,255,.045); border: 1px solid var(--line); border-radius: 16px; }
+    .stat strong { display:block; font-size:1.65rem; line-height:1.2; color:var(--gold-light); }
+    .stat span { display:block; color:var(--muted); font-size:.83rem; margin-top:5px; }
+    .section { padding: 72px 0; }
+    .section-head { text-align:center; max-width:760px; margin:0 auto 36px; }
+    .section-head h2 { font:700 clamp(2rem,4vw,3.2rem)/1.12 Georgia,serif; letter-spacing:-.035em; margin-bottom:12px; }
+    .section-head p { color:var(--muted); font-size:1.05rem; margin-bottom:0; }
+    .gold-text { color:var(--gold); }
+    .services-grid { display:grid; grid-template-columns:repeat(5, 1fr); gap:14px; }
+    .service-card, .info-card, .university-card, .contact-card {
+      background: linear-gradient(145deg, rgba(18,32,56,.96), rgba(16,28,49,.92));
+      border:1px solid var(--line); border-radius:22px;
+    }
+    .service-card { padding:22px 17px; min-height:205px; }
+    .service-icon { width:48px; height:48px; display:grid; place-items:center; border-radius:15px; background:rgba(231,181,28,.09); border:1px solid var(--line-gold); font-size:1.35rem; margin-bottom:18px; }
+    .service-card h3 { font-size:1.02rem; margin-bottom:8px; }
+    .service-card p { color:var(--muted); font-size:.88rem; margin-bottom:0; }
+    .university-section { background:rgba(255,255,255,.015); border-block:1px solid rgba(255,255,255,.04); }
+    .filters { display:grid; grid-template-columns:1.4fr 1fr 1fr auto; gap:12px; margin-bottom:22px; }
+    .field, .select {
+      width:100%; color:var(--text); background:#101c31; border:1px solid rgba(255,255,255,.15);
+      border-radius:13px; padding:13px 14px; min-height:48px;
+    }
+    .select option { background:#101c31; color:white; }
+    .results-row { display:flex; align-items:center; justify-content:space-between; gap:14px; margin-bottom:18px; color:var(--muted); font-size:.92rem; }
+    .results-row strong { color:white; }
+    .university-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; }
+    .university-card { padding:22px; display:flex; flex-direction:column; gap:15px; min-width:0; transition:transform .2s ease, border-color .2s ease; }
+    .university-card:hover { transform:translateY(-3px); border-color:var(--line-gold); }
+    .uni-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
+    .uni-identity { display:flex; gap:13px; align-items:flex-start; min-width:0; }
+    .uni-monogram { width:48px; height:48px; flex:0 0 48px; display:grid; place-items:center; border-radius:15px; color:var(--gold-light); background:linear-gradient(145deg, rgba(231,181,28,.17), rgba(32,211,239,.06)); border:1px solid var(--line-gold); font-weight:900; font-size:.95rem; }
+    .uni-title { margin:0 0 4px; font:700 1.28rem/1.2 Georgia,serif; }
+    .uni-city { color:var(--muted); font-size:.86rem; }
+    .rank-pill { flex:0 0 auto; border:1px solid var(--line-gold); color:var(--gold-light); background:rgba(231,181,28,.08); border-radius:999px; padding:6px 10px; font-size:.77rem; font-weight:800; }
+    .uni-summary { color:#c1cada; font-size:.93rem; margin:0; }
+    .tag-list { display:flex; flex-wrap:wrap; gap:7px; }
+    .tag { border:1px solid rgba(255,255,255,.10); background:rgba(255,255,255,.035); color:#cbd5e1; border-radius:999px; padding:5px 9px; font-size:.76rem; }
+    .uni-meta { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .meta-box { padding:12px; border-radius:13px; background:rgba(255,255,255,.035); }
+    .meta-box small { display:block; color:var(--muted); margin-bottom:4px; }
+    .meta-box span { font-size:.85rem; font-weight:650; }
+    .uni-actions { display:flex; align-items:center; justify-content:space-between; gap:12px; padding-top:4px; margin-top:auto; }
+    .compare-check { display:flex; align-items:center; gap:8px; font-size:.87rem; color:#dbe3ef; cursor:pointer; }
+    input[type="checkbox"] { accent-color:var(--gold); width:17px; height:17px; }
+    .empty-state { padding:34px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:18px; grid-column:1/-1; }
+    .compare-toolbar { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; padding:17px 18px; margin-top:22px; border:1px solid var(--line-gold); border-radius:18px; background:rgba(231,181,28,.06); }
+    .compare-toolbar p { margin:0; color:var(--muted); font-size:.9rem; }
+    .compare-toolbar strong { color:white; }
+    .compare-panel { margin-top:18px; padding:20px; border:1px solid var(--line); border-radius:20px; background:#0c1527; }
+    .compare-panel[hidden] { display:none; }
+    .compare-panel h3 { font:700 1.55rem Georgia,serif; }
+    .table-wrap { overflow-x:auto; }
+    table { border-collapse:collapse; width:100%; min-width:620px; font-size:.9rem; }
+    th, td { text-align:left; padding:13px 12px; border-bottom:1px solid var(--line); vertical-align:top; }
+    th { color:var(--gold-light); font-weight:800; }
+    td:first-child { color:var(--muted); width:150px; }
+    .notice { padding:15px 17px; border-left:3px solid var(--gold); border-radius:0 12px 12px 0; background:rgba(231,181,28,.06); color:#d3dbea; font-size:.88rem; }
+    .three-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .info-card { padding:23px; }
+    .info-card .number { color:var(--gold); font-weight:900; font-size:.8rem; letter-spacing:.12em; }
+    .info-card h3 { font:700 1.35rem Georgia,serif; margin:10px 0; }
+    .info-card p, .info-card li { color:var(--muted); font-size:.92rem; }
+    .info-card ul { padding-left:19px; margin-bottom:0; }
+    .checklist { display:grid; grid-template-columns:repeat(2,1fr); gap:11px 18px; }
+    .check-item { display:flex; align-items:flex-start; gap:10px; padding:13px 14px; border:1px solid var(--line); background:rgba(255,255,255,.025); border-radius:13px; color:#d8e0ed; font-size:.92rem; }
+    .scholarship-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+    .scholarship-card { padding:23px; border-radius:20px; border:1px solid var(--line); background:linear-gradient(145deg, rgba(20,36,62,.95), rgba(11,22,39,.96)); }
+    .scholarship-card h3 { font:700 1.25rem Georgia,serif; }
+    .scholarship-card p { color:var(--muted); font-size:.91rem; }
+    .scholarship-card a { color:var(--gold-light); text-decoration:underline; text-underline-offset:3px; }
+    .steps { display:grid; grid-template-columns:repeat(4,1fr); gap:13px; counter-reset:step; }
+    .step { padding:21px; border:1px solid var(--line); border-radius:18px; background:rgba(255,255,255,.025); }
+    .step:before { counter-increment:step; content:"0" counter(step); display:block; color:var(--gold); font-weight:900; margin-bottom:13px; }
+    .step h3 { font-size:1rem; margin-bottom:7px; }
+    .step p { color:var(--muted); font-size:.88rem; margin-bottom:0; }
+    .contact-section { padding-bottom:84px; }
+    .contact-wrap { display:grid; grid-template-columns:.9fr 1.1fr; gap:24px; align-items:stretch; }
+    .contact-intro { padding:30px 8px 20px 0; }
+    .contact-intro h2 { font:700 clamp(2rem,4vw,3.1rem)/1.1 Georgia,serif; letter-spacing:-.035em; }
+    .contact-intro p { color:var(--muted); }
+    .contact-card { padding:24px; border-color:var(--line-gold); }
+    .contact-person { padding:18px 0; border-bottom:1px solid var(--line); }
+    .contact-person:first-child { padding-top:0; }
+    .contact-person:last-child { border-bottom:0; padding-bottom:0; }
+    .role { color:var(--gold); text-transform:uppercase; font-size:.74rem; font-weight:900; letter-spacing:.13em; }
+    .contact-person h3 { font:700 1.45rem Georgia,serif; margin:6px 0 12px; }
+    .contact-detail { display:flex; gap:10px; align-items:flex-start; color:#d9e2ef; margin-top:8px; font-size:.91rem; }
+    .contact-detail b { color:var(--cyan); }
+    .contact-links { display:flex; flex-wrap:wrap; gap:10px; margin-top:19px; }
+    .site-footer { border-top:1px solid var(--line); padding:25px 0 32px; color:var(--muted); font-size:.84rem; }
+    .footer-row { display:flex; justify-content:space-between; align-items:flex-start; gap:20px; flex-wrap:wrap; }
+    .footer-links { display:flex; flex-wrap:wrap; gap:15px; }
+    .footer-links a { color:var(--gold-light); }
+    .disclaimer { margin-top:17px; max-width:900px; font-size:.78rem; color:#8290a6; }
+    .back-top { position:fixed; right:18px; bottom:18px; z-index:10; width:44px; height:44px; border:1px solid var(--line-gold); border-radius:14px; color:var(--gold-light); background:#111e35; box-shadow:var(--shadow); }
+    .toast { position:fixed; left:50%; bottom:22px; transform:translate(-50%, 20px); opacity:0; pointer-events:none; z-index:40; padding:12px 16px; border:1px solid var(--line-gold); border-radius:13px; background:#15233b; color:white; box-shadow:var(--shadow); transition:opacity .2s, transform .2s; max-width:calc(100% - 30px); text-align:center; }
+    .toast.show { opacity:1; transform:translate(-50%,0); }
+    @media (max-width: 980px) {
+      .nav-links { gap:14px; }
+      .services-grid { grid-template-columns:repeat(3,1fr); }
+      .hero-grid { gap:28px; }
+      .steps { grid-template-columns:repeat(2,1fr); }
+    }
+    @media (max-width: 760px) {
+      .container { width:min(100% - 28px, var(--max)); }
+      .nav { min-height:70px; }
+      .menu-toggle { display:block; }
+      .nav-links { display:none; position:absolute; top:70px; left:14px; right:14px; padding:16px; background:#0d172b; border:1px solid var(--line); border-radius:17px; box-shadow:var(--shadow); flex-direction:column; align-items:stretch; gap:0; }
+      .nav-links.open { display:flex; }
+      .nav-links a { padding:11px 8px; }
+      .nav-cta { display:none; }
+      .hero { padding:52px 0 40px; }
+      .hero-grid, .contact-wrap { grid-template-columns:1fr; }
+      .hero-panel { max-width:540px; }
+      .section { padding:54px 0; }
+      .services-grid { grid-template-columns:repeat(2,1fr); }
+      .filters { grid-template-columns:1fr 1fr; }
+      .filters .search-wrap { grid-column:1/-1; }
+      .university-grid { grid-template-columns:1fr; }
+      .three-grid, .scholarship-grid { grid-template-columns:1fr; }
+      .checklist { grid-template-columns:1fr; }
+      .contact-intro { padding:0; }
+    }
+    @media (max-width: 440px) {
+      .brand { font-size:1.08rem; }
+      .services-grid { grid-template-columns:1fr; }
+      .filters { grid-template-columns:1fr; }
+      .filters .search-wrap { grid-column:auto; }
+      .uni-top { flex-direction:column; }
+      .uni-meta { grid-template-columns:1fr 1fr; }
+      .uni-actions { align-items:flex-start; flex-direction:column; }
+      .steps { grid-template-columns:1fr; }
+      .hero-actions .btn { width:100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior:auto; }
+      *, *:before, *:after { transition:none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="#home" aria-label="China Academic World home"><span class="gold">China</span> Academic <span class="gold">World</span></a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">Menu ☰</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#universities">Universities</a>
+        <a href="#admissions">Admissions</a>
+        <a href="#scholarships">Scholarships</a>
+        <a href="#services">Services</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <a class="btn btn-gold nav-cta" href="#contact">Get Started ↗</a>
+    </div>
+  </header>
+
+  <main id="home">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow"><span aria-hidden="true">●</span> Connecting dreams · Building futures</span>
+          <h1>Your trusted bridge from <span class="gold">Bangladesh</span> to study in <span class="gold">China</span></h1>
+          <p class="lead">Explore leading Chinese universities, compare study options, and understand the admission process, scholarships, and student support available to Bangladeshi applicants.</p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="https://wa.me/8801515629045?text=Hello%20China%20Academic%20World%2C%20I%20want%20to%20study%20in%20China." target="_blank" rel="noopener">Contact Us on WhatsApp ↗</a>
+            <a class="btn btn-outline" href="#universities">Compare Universities ↓</a>
+          </div>
+          <p class="hero-note">Program availability, admission decisions, scholarships, and visa approvals are determined by the relevant institutions and authorities.</p>
+        </div>
+        <aside class="hero-panel" aria-label="Study in China overview">
+          <span class="panel-label">Start with a clear plan</span>
+          <h2>Find a university that fits your goals.</h2>
+          <div class="stat-grid">
+            <div class="stat"><strong>10</strong><span>Universities to explore</span></div>
+            <div class="stat"><strong>3</strong><span>Degree levels covered</span></div>
+            <div class="stat"><strong>01</strong><span>Application checklist</span></div>
+            <div class="stat"><strong>∞</strong><span>Paths to research</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section" id="services">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">How we can help</span>
+          <h2>Guidance from <span class="gold-text">application to arrival</span></h2>
+          <p>Practical support to help you make informed decisions about studying in China.</p>
+        </div>
+        <div class="services-grid">
+          <article class="service-card"><div class="service-icon" aria-hidden="true">🎓</div><h3>Study in China</h3><p>Explore universities and programs aligned with your academic goals.</p></article>
+          <article class="service-card"><div class="service-icon" aria-hidden="true">👥</div><h3>Student Support</h3><p>Guidance on applications, document preparation, and arrival planning.</p></article>
+          <article class="service-card"><div class="service-icon" aria-hidden="true">📄</div><h3>Visa & Admission</h3><p>Understand application paperwork and student visa procedures.</p></article>
+          <article class="service-card"><div class="service-icon" aria-hidden="true">🏛️</div><h3>University Pathways</h3><p>Information about university options and program-specific entry criteria.</p></article>
+          <article class="service-card"><div class="service-icon" aria-hidden="true">🌐</div><h3>Global Opportunity</h3><p>Learn about scholarships, research pathways, and international study.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section university-section" id="universities">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">University explorer</span>
+          <h2>Compare leading universities in <span class="gold-text">mainland China</span></h2>
+          <p>Search by university, city, or subject. Select up to three universities to compare them side by side.</p>
+        </div>
+        <div class="filters" role="search" aria-label="Filter universities">
+          <div class="search-wrap"><input class="field" id="searchInput" type="search" placeholder="Search university, city, or subject…" aria-label="Search universities"></div>
+          <select class="select" id="fieldFilter" aria-label="Filter by subject">
+            <option value="">All subject areas</option>
+            <option value="engineering">Engineering & Technology</option>
+            <option value="computer">Computer Science & AI</option>
+            <option value="business">Business & Economics</option>
+            <option value="medicine">Medicine & Life Sciences</option>
+            <option value="science">Natural Sciences</option>
+            <option value="architecture">Architecture & Urban Planning</option>
+            <option value="social">Law & Social Sciences</option>
+          </select>
+          <select class="select" id="degreeFilter" aria-label="Filter by degree level">
+            <option value="">All degree levels</option>
+            <option value="Bachelor's">Bachelor's</option>
+            <option value="Master's">Master's</option>
+            <option value="PhD">PhD / Doctoral</option>
+          </select>
+          <button class="btn btn-outline" id="resetFilters" type="button">Reset</button>
+        </div>
+        <div class="results-row"><span id="resultsCount"><strong>10</strong> universities shown</span><span>QS World University Rankings 2027 · Overall global rank</span></div>
+        <div class="university-grid" id="universityGrid" aria-live="polite"></div>
+        <div class="compare-toolbar">
+          <p><strong id="selectedCount">0 selected</strong> · Choose up to 3 universities for a side-by-side comparison.</p>
+          <div style="display:flex;gap:9px;flex-wrap:wrap">
+            <button class="btn btn-gold btn-small" id="compareNow" type="button">Compare selected</button>
+            <button class="btn btn-outline btn-small" id="clearCompare" type="button">Clear selection</button>
+          </div>
+        </div>
+        <section class="compare-panel" id="comparePanel" hidden aria-labelledby="compareTitle">
+          <h3 id="compareTitle">University comparison</h3>
+          <div class="table-wrap" id="comparisonTable"></div>
+          <p class="notice" style="margin-top:16px">Ranks shown are overall QS World University Rankings 2027 ranks, not subject rankings. Program language, entry requirements, facilities, and degree availability differ by department and intake. Confirm all details on the official university website before applying.</p>
+        </section>
+        <p class="notice" style="margin-top:22px">Ranking source: <a href="https://www.topuniversities.com/university-rankings-articles/world-university-rankings/top-universities-mainland-china" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">QS — Top universities in mainland China</a>. Rankings are one comparison factor, not a guarantee of suitability or admission.</p>
+      </div>
+    </section>
+
+    <section class="section" id="admissions">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Admissions guide</span>
+          <h2>Which degree are you planning to pursue?</h2>
+          <p>Entry requirements depend on the university, course, teaching language, and intake year.</p>
+        </div>
+        <div class="three-grid">
+          <article class="info-card"><span class="number">01 / UNDERGRADUATE</span><h3>Bachelor's degree</h3><p>Usually requires completed secondary education equivalent to 12 years of schooling.</p><ul><li>SSC and HSC certificates/transcripts, or equivalent</li><li>Proof of English or Chinese proficiency, if required</li><li>CSCA or other entrance assessment, if required</li><li>Personal statement and additional documents as requested</li></ul></article>
+          <article class="info-card"><span class="number">02 / POSTGRADUATE</span><h3>Master's degree</h3><p>Usually requires a recognized bachelor's degree relevant to the intended program.</p><ul><li>Bachelor's certificate and complete transcripts</li><li>CV and study plan/personal statement</li><li>Recommendation letters, where required</li><li>Language evidence and interview, if required</li></ul></article>
+          <article class="info-card"><span class="number">03 / RESEARCH</span><h3>PhD / Doctoral degree</h3><p>Usually requires a relevant master's degree, although specific pathways may differ.</p><ul><li>Degree certificates and transcripts</li><li>Academic CV and research proposal</li><li>Recommendation letters</li><li>Supervisor contact or interview, where required</li></ul></article>
+        </div>
+        <div style="margin-top:22px" class="notice">Typical duration only: many bachelor's programs take around 4 years, master's programs around 2–3 years, and PhD programs around 3–4 years or longer. Medicine, architecture, and other specialist programs can differ.</div>
+
+        <div style="margin-top:48px">
+          <div class="section-head" style="margin-bottom:24px">
+            <h2 style="font-size:clamp(1.7rem,3.2vw,2.45rem)">Document preparation checklist</h2>
+            <p>Tick off documents as you prepare them. This checklist is a starting point, not a substitute for the official program requirements.</p>
+          </div>
+          <div class="checklist" id="documentChecklist">
+            <label class="check-item"><input type="checkbox"> Valid passport</label>
+            <label class="check-item"><input type="checkbox"> Recent passport-size photograph</label>
+            <label class="check-item"><input type="checkbox"> Academic certificates and transcripts</label>
+            <label class="check-item"><input type="checkbox"> Certified translations, if required</label>
+            <label class="check-item"><input type="checkbox"> IELTS/TOEFL or HSK evidence, if required</label>
+            <label class="check-item"><input type="checkbox"> Study plan or personal statement</label>
+            <label class="check-item"><input type="checkbox"> Recommendation letters, if required</label>
+            <label class="check-item"><input type="checkbox"> CV and research proposal for relevant postgraduate programs</label>
+            <label class="check-item"><input type="checkbox"> CSCA or other test results, if required</label>
+            <label class="check-item"><input type="checkbox"> Medical, police-clearance, or financial documents, if requested</label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="scholarships" style="background:rgba(255,255,255,.015);border-block:1px solid rgba(255,255,255,.04)">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Funding your education</span>
+          <h2>Scholarship routes to <span class="gold-text">research</span></h2>
+          <p>Funding coverage and eligibility change by year, university, degree level, and scholarship scheme.</p>
+        </div>
+        <div class="scholarship-grid">
+          <article class="scholarship-card"><div class="service-icon" aria-hidden="true">🏅</div><h3>Chinese Government Scholarship</h3><p>Some schemes may provide tuition, accommodation, medical insurance, and a living allowance. Benefits and application routes vary; never assume every cost is covered.</p><a href="https://www.campuschina.org/" target="_blank" rel="noopener">Visit Campus China ↗</a></article>
+          <article class="scholarship-card"><div class="service-icon" aria-hidden="true">🎓</div><h3>University scholarships</h3><p>Individual universities may offer full or partial awards for eligible international students. Admission and scholarship decisions may be separate.</p><a href="https://www.topuniversities.com/" target="_blank" rel="noopener">Research university options ↗</a></article>
+          <article class="scholarship-card"><div class="service-icon" aria-hidden="true">🏙️</div><h3>Provincial or city awards</h3><p>Some local governments support international study through annual schemes. Confirm the current call, eligibility, and application deadline with the university.</p><a href="https://bd.china-embassy.gov.cn/eng/" target="_blank" rel="noopener">Check embassy updates ↗</a></article>
+        </div>
+        <p class="notice" style="margin-top:20px">Important: Do not pay anyone who promises guaranteed admission, a guaranteed scholarship, or guaranteed visa approval. Verify payment instructions and deadlines directly with the official university or scholarship authority.</p>
+      </div>
+    </section>
+
+    <section class="section" id="process">
+      <div class="container">
+        <div class="section-head">
+          <span class="eyebrow">Your application roadmap</span>
+          <h2>Four steps to get <span class="gold-text">started</span></h2>
+          <p>Build your plan around official requirements and deadlines rather than assumptions.</p>
+        </div>
+        <div class="steps">
+          <article class="step"><h3>Choose your subject</h3><p>Decide your degree level, intended major, preferred language, and budget.</p></article>
+          <article class="step"><h3>Check eligibility</h3><p>Review the university's current admissions guide and required documents.</p></article>
+          <article class="step"><h3>Submit the application</h3><p>Apply through the official portal and keep copies of forms and receipts.</p></article>
+          <article class="step"><h3>Prepare for arrival</h3><p>After official decisions, follow the relevant visa, travel, and registration instructions.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="contact">
+      <div class="container contact-wrap">
+        <div class="contact-intro">
+          <span class="eyebrow">Talk to our team</span>
+          <h2>Ready to start your journey to <span class="gold-text">China?</span></h2>
+          <p>Tell us your current qualification, intended subject, target degree, and preferred intake. We can help you understand which official requirements to check first.</p>
+          <div class="contact-links">
+            <a class="btn btn-gold" href="https://wa.me/8801515629045?text=Hello%20China%20Academic%20World%2C%20I%20would%20like%20guidance%20about%20studying%20in%20China." target="_blank" rel="noopener">WhatsApp our team ↗</a>
+            <a class="btn btn-outline" href="mailto:chinaacademicworld@gmail.com">Send an email ↗</a>
+          </div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-person">
+            <span class="role">Founder & CEO</span>
+            <h3>Selim Pervej</h3>
+            <div class="contact-detail"><span aria-hidden="true">💬</span><span>WeChat: <b>+86 156 1846 1178</b></span></div>
+            <div class="contact-detail"><span aria-hidden="true">📍</span><span>Yiwu City, Zhejiang, China</span></div>
+          </div>
+          <div class="contact-person">
+            <span class="role">Assistant Director</span>
+            <h3>MD. Sabbir Ahammed</h3>
+            <div class="contact-detail"><span aria-hidden="true">☎</span><span>WhatsApp: <b>01515 629045</b></span></div>
+            <div class="contact-detail"><span aria-hidden="true">📍</span><span>Tejgaon, Dhaka 1208, Bangladesh</span></div>
+          </div>
+          <div class="contact-detail"><span aria-hidden="true">✉</span><a href="mailto:chinaacademicworld@gmail.com">chinaacademicworld@gmail.com</a></div>
+          <div class="contact-detail"><span aria-hidden="true">🌐</span><a href="https://chinaacademic.world" target="_blank" rel="noopener">chinaacademic.world</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-row">
+        <div>© <span id="year">2026</span> China Academic World. All rights reserved.</div>
+        <div class="footer-links"><a href="mailto:chinaacademicworld@gmail.com">Email</a><a href="https://wa.me/8801515629045" target="_blank" rel="noopener">WhatsApp</a><a href="#home">Back to top ↑</a></div>
+      </div>
+      <p class="disclaimer">China Academic World is an independent education-guidance service and is not an official university, government, or visa authority. University descriptions are general guidance, not a guarantee that a specific program is open to international applicants. Rankings refer to the QS World University Rankings 2027 overall global positions and may change in later editions. Confirm program details, language of instruction, tuition, deadlines, scholarships, recognition, and visa requirements with official sources before making decisions.</p>
+    </div>
+  </footer>
+  <button class="back-top" id="backTop" aria-label="Back to top" title="Back to top">↑</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    const universities = [
+      {
+        id:"pku", name:"Peking University", short:"PKU", rank:13, city:"Beijing",
+        fields:["Economics","Law","Computer Science","Medicine","Social Sciences"],
+        categories:["business","computer","medicine","social","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Broad research strengths across economics, law, sciences, medicine, and the humanities.",
+        facilities:"Research centers, libraries, student services, sports facilities; housing varies by program.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://admission.pku.edu.cn/"
+      },
+      {
+        id:"tsinghua", name:"Tsinghua University", short:"THU", rank:14, city:"Beijing",
+        fields:["Engineering","Computer Science","AI","Architecture","Business"],
+        categories:["engineering","computer","architecture","business","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Especially known for engineering, technology, architecture, and interdisciplinary research.",
+        facilities:"Engineering labs, research institutes, libraries, sports and campus accommodation options.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://international.join-tsinghua.edu.cn/"
+      },
+      {
+        id:"fudan", name:"Fudan University", short:"FDU", rank:26, city:"Shanghai",
+        fields:["Medicine","Finance","Economics","Data Science","International Relations"],
+        categories:["medicine","business","computer","social","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"A comprehensive research university with strengths in medicine, finance, and social sciences.",
+        facilities:"Research facilities, affiliated hospitals, libraries, student support and accommodation options.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://iso.fudan.edu.cn/isoenglish/"
+      },
+      {
+        id:"sjtu", name:"Shanghai Jiao Tong University", short:"SJTU", rank:36, city:"Shanghai",
+        fields:["Engineering","Computer Science","AI","Business","Medicine"],
+        categories:["engineering","computer","business","medicine","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Strong options in engineering, computing, applied sciences, business, and medicine.",
+        facilities:"Engineering laboratories, research centers, medical facilities and campus services.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://en.sjtu.edu.cn/study-sjtu/prospective"
+      },
+      {
+        id:"zju", name:"Zhejiang University", short:"ZJU", rank:47, city:"Hangzhou",
+        fields:["Computer Science","Engineering","Agriculture","Biotechnology","Management"],
+        categories:["computer","engineering","medicine","business","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"A large research university spanning technology, engineering, life sciences, and management.",
+        facilities:"Research laboratories, innovation centers, libraries, medical facilities and student services.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://iczu.zju.edu.cn/admissionsen/"
+      },
+      {
+        id:"nju", name:"Nanjing University", short:"NJU", rank:90, city:"Nanjing",
+        fields:["Physics","Chemistry","Software Engineering","Environment","Economics"],
+        categories:["science","computer","engineering","business"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Known for scientific research, environmental studies, software, and humanities disciplines.",
+        facilities:"Scientific laboratories, research centers, libraries and international student support.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://hwxy.nju.edu.cn/English/"
+      },
+      {
+        id:"ustc", name:"University of Science and Technology of China", short:"USTC", rank:134, city:"Hefei",
+        fields:["Physics","Quantum Science","AI","Mathematics","Materials Science"],
+        categories:["science","computer","engineering"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"A research-focused institution with strengths in fundamental sciences and advanced technology.",
+        facilities:"Advanced science laboratories, research institutes and technology facilities.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://ic.ustc.edu.cn/en"
+      },
+      {
+        id:"tongji", name:"Tongji University", short:"TJU", rank:146, city:"Shanghai",
+        fields:["Civil Engineering","Architecture","Urban Planning","Transport","Environment"],
+        categories:["engineering","architecture","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"A notable option for civil engineering, architecture, urban planning, and transport-related fields.",
+        facilities:"Engineering laboratories, design facilities, research centers and student services.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://study.tongji.edu.cn/en/"
+      },
+      {
+        id:"whu", name:"Wuhan University", short:"WHU", rank:165, city:"Wuhan",
+        fields:["Surveying","Remote Sensing","Computer Science","Law","Medicine"],
+        categories:["engineering","computer","social","medicine","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Recognized for geospatial sciences, remote sensing, law, computing, and medical education.",
+        facilities:"Geospatial research, laboratories, libraries, medical education and accommodation options.",
+        language:"Program-specific; check English/Chinese teaching options.",
+        official:"https://admission.whu.edu.cn/en"
+      },
+      {
+        id:"hit", name:"Harbin Institute of Technology", short:"HIT", rank:190, city:"Harbin",
+        fields:["Aerospace","Robotics","AI","Mechanical Engineering","Materials Science"],
+        categories:["engineering","computer","science"],
+        degrees:["Bachelor's","Master's","PhD"],
+        summary:"Technology-focused university with strong engineering, aerospace, robotics, and materials research.",
+        facilities:"Engineering and robotics labs, technology research facilities and student accommodation options.",
+        language:"Program-specific; campus and program availability can differ.",
+        official:"https://studyathit.hit.edu.cn/"
+      }
+    ];
+
+    const grid = document.getElementById("universityGrid");
+    const searchInput = document.getElementById("searchInput");
+    const fieldFilter = document.getElementById("fieldFilter");
+    const degreeFilter = document.getElementById("degreeFilter");
+    const resultsCount = document.getElementById("resultsCount");
+    const selectedCount = document.getElementById("selectedCount");
+    const comparePanel = document.getElementById("comparePanel");
+    const comparisonTable = document.getElementById("comparisonTable");
+    const toast = document.getElementById("toast");
+    const selected = new Set();
+
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(showToast.timer);
+      showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2800);
+    }
+
+    function cardMarkup(u) {
+      return `
+        <article class="university-card">
+          <div class="uni-top">
+            <div class="uni-identity">
+              <div class="uni-monogram" aria-hidden="true">${u.short}</div>
+              <div><h3 class="uni-title">${u.name}</h3><div class="uni-city">📍 ${u.city}, China</div></div>
+            </div>
+            <span class="rank-pill">QS #${u.rank}</span>
+          </div>
+          <p class="uni-summary">${u.summary}</p>
+          <div class="tag-list">${u.fields.map(f => `<span class="tag">${f}</span>`).join("")}</div>
+          <div class="uni-meta">
+            <div class="meta-box"><small>Degree levels</small><span>Bachelor's · Master's · PhD*</span></div>
+            <div class="meta-box"><small>Teaching language</small><span>Program-specific</span></div>
+          </div>
+          <div class="uni-actions">
+            <label class="compare-check"><input type="checkbox" class="compare-input" data-id="${u.id}" ${selected.has(u.id) ? "checked" : ""} aria-label="Compare ${u.name}"> Add to compare</label>
+            <a class="btn btn-outline btn-small" href="${u.official}" target="_blank" rel="noopener">Official admissions ↗</a>
+          </div>
+        </article>`;
+    }
+
+    function filteredUniversities() {
+      const query = searchInput.value.trim().toLowerCase();
+      const field = fieldFilter.value;
+      const degree = degreeFilter.value;
+      return universities.filter(u => {
+        const text = [u.name, u.city, u.summary, ...u.fields].join(" ").toLowerCase();
+        const matchesQuery = !query || text.includes(query);
+        const matchesField = !field || u.categories.includes(field);
+        const matchesDegree = !degree || u.degrees.includes(degree);
+        return matchesQuery && matchesField && matchesDegree;
+      });
+    }
+
+    function renderUniversities() {
+      const filtered = filteredUniversities();
+      grid.innerHTML = filtered.length ? filtered.map(cardMarkup).join("") :
+        `<div class="empty-state">No universities match those filters. Try another search or reset the filters.</div>`;
+      resultsCount.innerHTML = `<strong>${filtered.length}</strong> ${filtered.length === 1 ? "university" : "universities"} shown`;
+      selectedCount.textContent = `${selected.size} selected`;
+      grid.querySelectorAll(".compare-input").forEach(input => {
+        input.addEventListener("change", event => {
+          const id = event.target.dataset.id;
+          if (event.target.checked) {
+            if (selected.size >= 3) {
+              event.target.checked = false;
+              showToast("You can compare up to 3 universities at a time.");
+              return;
+            }
+            selected.add(id);
+          } else {
+            selected.delete(id);
+          }
+          selectedCount.textContent = `${selected.size} selected`;
+          comparePanel.hidden = true;
+        });
+      });
+    }
+
+    function renderComparison() {
+      if (selected.size < 2) {
+        showToast("Select at least 2 universities to compare.");
+        return;
+      }
+      const items = universities.filter(u => selected.has(u.id));
+      const rows = [
+        ["QS global rank", u => `#${u.rank}`],
+        ["City", u => u.city],
+        ["Popular fields", u => u.fields.join(", ")],
+        ["General strengths", u => u.summary],
+        ["Facilities to explore", u => u.facilities],
+        ["Degree levels", u => "Bachelor's, Master's and PhD pathways exist at the university; availability varies by program."],
+        ["Teaching language", u => u.language],
+        ["Official admissions", u => `<a href="${u.official}" target="_blank" rel="noopener" style="color:var(--gold-light);text-decoration:underline">Visit official page ↗</a>`]
+      ];
+      comparisonTable.innerHTML = `<table><thead><tr><th>Comparison</th>${items.map(u => `<th>${u.name}</th>`).join("")}</tr></thead><tbody>${rows.map(([label, value]) => `<tr><td>${label}</td>${items.map(u => `<td>${value(u)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+      comparePanel.hidden = false;
+      comparePanel.scrollIntoView({behavior:"smooth", block:"start"});
+    }
+
+    searchInput.addEventListener("input", renderUniversities);
+    fieldFilter.addEventListener("change", renderUniversities);
+    degreeFilter.addEventListener("change", renderUniversities);
+    document.getElementById("resetFilters").addEventListener("click", () => {
+      searchInput.value = "";
+      fieldFilter.value = "";
+      degreeFilter.value = "";
+      renderUniversities();
+    });
+    document.getElementById("compareNow").addEventListener("click", renderComparison);
+    document.getElementById("clearCompare").addEventListener("click", () => {
+      selected.clear();
+      comparePanel.hidden = true;
+      renderUniversities();
+      showToast("Comparison selection cleared.");
+    });
+    document.getElementById("menuToggle").addEventListener("click", () => {
+      const nav = document.getElementById("navLinks");
+      const isOpen = nav.classList.toggle("open");
+      document.getElementById("menuToggle").setAttribute("aria-expanded", String(isOpen));
+    });
+    document.querySelectorAll("#navLinks a").forEach(link => link.addEventListener("click", () => {
+      document.getElementById("navLinks").classList.remove("open");
+      document.getElementById("menuToggle").setAttribute("aria-expanded", "false");
+    }));
+    document.getElementById("backTop").addEventListener("click", () => window.scrollTo({top:0, behavior:"smooth"}));
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    renderUniversities();
+  </script>
+</body>
+</html>
