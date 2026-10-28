@@ -117,6 +117,68 @@
     .university-grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:18px; }
     .university-card { padding:22px; display:flex; flex-direction:column; gap:15px; min-width:0; transition:transform .2s ease, border-color .2s ease; }
     .university-card:hover { transform:translateY(-3px); border-color:var(--line-gold); }
+
+    .uni-photo-button {
+      display:block; width:100%; padding:0; border:0; background:#0b1425; border-radius:17px;
+      overflow:hidden; position:relative; cursor:pointer; text-align:left;
+    }
+    .uni-photo { display:block; width:100%; height:220px; object-fit:cover; transition:transform .35s ease; }
+    .uni-photo-button:hover .uni-photo { transform:scale(1.035); }
+    .uni-photo-fallback { display:none; height:220px; place-items:center; padding:24px; text-align:center;
+      background:radial-gradient(circle at 20% 20%, rgba(32,211,239,.17), transparent 45%),
+                 linear-gradient(135deg,#152440,#0a1221); color:var(--gold-light); font:700 1.2rem Georgia,serif; }
+    .uni-photo-fallback.visible { display:grid; }
+    .uni-photo-caption { color:#8290a6; font-size:.72rem; margin-top:-8px; }
+    .uni-actions { flex-wrap:wrap; }
+    .details-button { white-space:nowrap; }
+    .uni-dialog {
+      width:min(980px, calc(100% - 24px)); max-width:none; max-height:calc(100dvh - 24px);
+      padding:0; border:1px solid var(--line-gold); border-radius:24px; background:#0b1425;
+      color:var(--text); overflow:auto; box-shadow:0 30px 100px rgba(0,0,0,.6);
+    }
+    .uni-dialog::backdrop { background:rgba(2,6,15,.78); backdrop-filter:blur(7px); }
+    .uni-dialog-shell { position:relative; }
+    .dialog-topbar { position:sticky; top:0; z-index:3; display:flex; justify-content:flex-end; padding:12px 14px;
+      background:linear-gradient(180deg,rgba(11,20,37,.98),rgba(11,20,37,.78)); }
+    .dialog-close { width:42px; height:42px; border:1px solid rgba(255,255,255,.17); border-radius:13px;
+      color:white; background:#17253e; font-size:1.5rem; line-height:1; }
+    .detail-hero { display:grid; grid-template-columns:1.05fr .95fr; gap:25px; padding:0 26px 26px; align-items:center; }
+    .detail-image-wrap { position:relative; border-radius:18px; overflow:hidden; min-height:280px; background:#101c31; }
+    .detail-image { display:block; width:100%; height:100%; min-height:280px; max-height:380px; object-fit:cover; }
+    .detail-image-fallback { display:none; min-height:280px; place-items:center; padding:24px; color:var(--gold-light); font:700 1.6rem Georgia,serif; text-align:center;
+      background:radial-gradient(circle at 20% 20%, rgba(32,211,239,.18), transparent 45%),linear-gradient(135deg,#152440,#0a1221); }
+    .detail-image-fallback.visible { display:grid; }
+    .detail-kicker { color:var(--gold-light); text-transform:uppercase; letter-spacing:.13em; font-size:.76rem; font-weight:850; }
+    .detail-title { font:700 clamp(1.9rem,4vw,3.2rem)/1.08 Georgia,serif; letter-spacing:-.035em; margin:10px 0 12px; }
+    .detail-location { color:var(--muted); margin-bottom:15px; }
+    .detail-overview { color:#d5deeb; font-size:1rem; }
+    .detail-facts { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:11px; margin-top:20px; }
+    .detail-fact { padding:13px; border:1px solid var(--line); border-radius:14px; background:rgba(255,255,255,.035); }
+    .detail-fact small { display:block; color:var(--muted); margin-bottom:4px; }
+    .detail-fact strong { font-size:.9rem; }
+    .detail-content { padding:0 26px 28px; }
+    .detail-content-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:14px; }
+    .detail-block { padding:19px; border:1px solid var(--line); border-radius:17px; background:rgba(255,255,255,.025); }
+    .detail-block h4 { font:700 1.15rem Georgia,serif; margin:0 0 10px; color:var(--gold-light); }
+    .detail-block p { color:#c3cedf; font-size:.91rem; margin:0; }
+    .detail-block ul { color:#c3cedf; padding-left:19px; margin:0; font-size:.91rem; }
+    .detail-block li + li { margin-top:6px; }
+    .detail-footnote { margin-top:16px; }
+    @media (max-width:760px) {
+      .uni-photo { height:190px; }
+      .detail-hero { grid-template-columns:1fr; padding:0 16px 20px; gap:18px; }
+      .detail-image-wrap, .detail-image, .detail-image-fallback { min-height:210px; }
+      .detail-image { max-height:280px; }
+      .detail-content { padding:0 16px 20px; }
+      .detail-content-grid { grid-template-columns:1fr; }
+      .detail-title { font-size:2rem; }
+      .detail-facts { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:440px) {
+      .uni-photo { height:175px; }
+      .detail-facts { grid-template-columns:1fr; }
+    }
+
     .uni-top { display:flex; align-items:flex-start; justify-content:space-between; gap:12px; }
     .uni-identity { display:flex; gap:13px; align-items:flex-start; min-width:0; }
     .uni-monogram { width:48px; height:48px; flex:0 0 48px; display:grid; place-items:center; border-radius:15px; color:var(--gold-light); background:linear-gradient(145deg, rgba(231,181,28,.17), rgba(32,211,239,.06)); border:1px solid var(--line-gold); font-weight:900; font-size:.95rem; }
@@ -327,7 +389,7 @@
         <section class="compare-panel" id="comparePanel" hidden aria-labelledby="compareTitle">
           <h3 id="compareTitle">University comparison</h3>
           <div class="table-wrap" id="comparisonTable"></div>
-          <p class="notice" style="margin-top:16px">Ranks shown are overall QS World University Rankings 2027 ranks, not subject rankings. Program language, entry requirements, facilities, and degree availability differ by department and intake. Confirm all details on the official university website before applying.</p>
+          <p class="notice" style="margin-top:16px">Ranks shown are overall QS World University Rankings 2027 ranks, not subject rankings. An equals sign indicates a tied rank. Program language, entry requirements, facilities, and degree availability differ by department and intake. Confirm all details on the official university website before applying.</p>
         </section>
         <p class="notice" style="margin-top:22px">Ranking source: <a href="https://www.topuniversities.com/university-rankings-articles/world-university-rankings/top-universities-mainland-china" target="_blank" rel="noopener" style="text-decoration:underline;text-underline-offset:3px">QS — Top universities in mainland China</a>. Rankings are one comparison factor, not a guarantee of suitability or admission.</p>
       </div>
@@ -431,6 +493,14 @@
     </section>
   </main>
 
+
+  <dialog class="uni-dialog" id="universityDialog" aria-label="University details">
+    <div class="uni-dialog-shell">
+      <div class="dialog-topbar"><button class="dialog-close" id="closeUniversityDialog" type="button" aria-label="Close university details">×</button></div>
+      <div id="universityDialogContent"></div>
+    </div>
+  </dialog>
+
   <footer class="site-footer">
     <div class="container">
       <div class="footer-row">
@@ -446,104 +516,164 @@
   <script>
     const universities = [
       {
-        id:"pku", name:"Peking University", short:"PKU", rank:13, city:"Beijing",
-        fields:["Economics","Law","Computer Science","Medicine","Social Sciences"],
+        id:"pku", name:"Peking University", short:"PKU", rank:"13", city:"Beijing",
+        image:"https://res.bauhk.com/contentcloud/44/ORIGINAL/MEDIA/PICTURE/2025/6/12/555fe8872ffd4c8f8a6d52380f4fbf6e_wh1024x576.jpg",
+        imageCredit:"Campus image: Boya Tower and Weiming Lake, hosted by BauHK",
+        fields:["Economics & Management","Law","Computer Science","Medicine","Humanities & Social Sciences","Natural Sciences"],
         categories:["business","computer","medicine","social","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Broad research strengths across economics, law, sciences, medicine, and the humanities.",
-        facilities:"Research centers, libraries, student services, sports facilities; housing varies by program.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://admission.pku.edu.cn/"
+        summary:"A comprehensive research university known for its breadth across sciences, humanities, social sciences, medicine, law, and economics.",
+        overview:"Peking University (PKU) is a major comprehensive research university in Beijing. Its academic strengths span humanities and social sciences as well as science, engineering, economics, law, and health sciences.",
+        programs:["Economics and management","Computer science and information engineering","Physics, chemistry, mathematics and life sciences","Law, international relations and social sciences","Medicine and health sciences"],
+        facilities:["Research laboratories and academic institutes","Libraries and specialist learning spaces","Health-science facilities and affiliated clinical institutions","Historic campus gardens and student activity spaces"],
+        admission:"Bachelor's applicants generally need a completed high-school qualification equivalent to 12 years of schooling. Graduate applicants need a relevant prior degree. Academic records, language evidence, personal statements, recommendations, tests or interviews may be required depending on the program.",
+        language:"Chinese and English options vary by degree and department. Do not assume every major is available in English.",
+        scholarship:"Potential routes include Chinese Government Scholarship schemes and university-level awards. Eligibility, coverage and deadlines are competitive and intake-specific.",
+        campusNotes:"Located in Beijing. PKU's Yan Yuan campus is known for Weiming Lake and Boya Pagoda. Housing availability and campus access depend on student status and program."
       },
       {
-        id:"tsinghua", name:"Tsinghua University", short:"THU", rank:14, city:"Beijing",
-        fields:["Engineering","Computer Science","AI","Architecture","Business"],
-        categories:["engineering","computer","architecture","business","science"],
+        id:"tsinghua", name:"Tsinghua University", short:"THU", rank:"14", city:"Beijing",
+        image:"https://www.tsinghua.edu.cn/__local/3/5A/D1/BC41530812A4F143D442F9FB18A_FCC911DD_74AD5.png",
+        imageCredit:"Campus image: Tsinghua University Main Building, Tsinghua University",
+        fields:["Engineering","Computer Science & AI","Architecture","Business & Economics","Sciences","Law"],
+        categories:["engineering","computer","architecture","business","science","social"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Especially known for engineering, technology, architecture, and interdisciplinary research.",
-        facilities:"Engineering labs, research institutes, libraries, sports and campus accommodation options.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://international.join-tsinghua.edu.cn/"
+        summary:"Internationally recognized for engineering, computing, architecture, sciences, and interdisciplinary research.",
+        overview:"Tsinghua University is a research-intensive university in Beijing with broad academic offerings and particularly strong visibility in engineering, technology, architecture, and applied sciences.",
+        programs:["Computer science, AI and software-related fields","Electrical, mechanical and other engineering disciplines","Architecture and built environment","Economics, management and business","Natural sciences, law and humanities"],
+        facilities:["Engineering and science laboratories","Libraries and research institutes","Sports and student activity facilities","Campus housing options subject to availability"],
+        admission:"Undergraduate applicants normally need recognized high-school completion. Master's and PhD applicants need the relevant previous degree. The university may require academic records, language scores, essays or study plans, recommendations, assessments and interviews.",
+        language:"Teaching language and required English/Chinese proficiency depend on the specific program. Some routes have separate HSK or English-test requirements.",
+        scholarship:"Government and university scholarship opportunities may be available for eligible applicants. Scholarship applications and admission decisions can have separate criteria.",
+        campusNotes:"Located in Beijing's Haidian District. Check the exact campus, program language and current international-student guide for your target intake."
       },
       {
-        id:"fudan", name:"Fudan University", short:"FDU", rank:26, city:"Shanghai",
-        fields:["Medicine","Finance","Economics","Data Science","International Relations"],
+        id:"fudan", name:"Fudan University", short:"FDU", rank:"26", city:"Shanghai",
+        image:"https://www.fudan.edu.cn/_upload/article/images/9f/9c/5cbd77f7439895223ad14ce2ac0f/b6cde99d-cba1-4b8e-8068-155a753ffacb.jpg",
+        imageCredit:"Campus image: Fudan University, Fudan University website",
+        fields:["Medicine & Life Sciences","Economics & Finance","Data Science","Journalism","International Relations","Natural Sciences"],
         categories:["medicine","business","computer","social","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"A comprehensive research university with strengths in medicine, finance, and social sciences.",
-        facilities:"Research facilities, affiliated hospitals, libraries, student support and accommodation options.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://iso.fudan.edu.cn/isoenglish/"
+        summary:"A comprehensive Shanghai university known for medicine, economics, finance, journalism, sciences, and international studies.",
+        overview:"Fudan University is a major research university in Shanghai. It offers a wide range of academic fields and is particularly associated with medicine, economics and finance, journalism, and social sciences.",
+        programs:["Economics, finance and management","Medicine, public health and life sciences","Computer science, data science and mathematics","Journalism, communication and international studies","Physics, chemistry and other natural sciences"],
+        facilities:["Research laboratories and academic centers","Affiliated hospitals and health-science facilities","Libraries and student learning spaces","International student support and campus services"],
+        admission:"Entry requirements depend on the degree and school. Prepare academic certificates and transcripts, language evidence, passport details, and any requested statement, recommendations, health documents or interview materials.",
+        language:"Both Chinese-taught and selected English-taught opportunities may exist, but availability varies by subject and degree level.",
+        scholarship:"Check current government, municipal and university scholarship calls. Awards, coverage and deadlines can differ for undergraduate and postgraduate applicants.",
+        campusNotes:"Located in Shanghai, a major financial, commercial and research hub. Confirm which campus and teaching hospital or faculty are associated with the program."
       },
       {
-        id:"sjtu", name:"Shanghai Jiao Tong University", short:"SJTU", rank:36, city:"Shanghai",
-        fields:["Engineering","Computer Science","AI","Business","Medicine"],
+        id:"sjtu", name:"Shanghai Jiao Tong University", short:"SJTU", rank:"36", city:"Shanghai",
+        image:"https://px.sjtu.edu.cn/Upload/ueditor/images/2015-07-06/3-c4ac45b2-08d9-4349-817e-1da16eb3e14f.jpg",
+        imageCredit:"Campus image: Shanghai Jiao Tong University Minhang Campus, SJTU continuing education site",
+        fields:["Engineering","Computer Science & AI","Mechanical & Electrical Engineering","Business","Medicine","Materials Science"],
         categories:["engineering","computer","business","medicine","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Strong options in engineering, computing, applied sciences, business, and medicine.",
-        facilities:"Engineering laboratories, research centers, medical facilities and campus services.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://en.sjtu.edu.cn/study-sjtu/prospective"
+        summary:"A large research university with major strengths in engineering, computing, applied sciences, management, and medicine.",
+        overview:"Shanghai Jiao Tong University (SJTU), founded in 1896, is one of China's long-established universities. Its schools span engineering, computing, sciences, business and medicine across campuses in Shanghai.",
+        programs:["Mechanical, electrical and other engineering fields","Computer science, AI and data-related disciplines","Materials science and applied sciences","Economics, management and finance","Medicine and health sciences"],
+        facilities:["Engineering and technology laboratories","Research centers and specialist institutes","Medical education and affiliated hospitals","Libraries, student services and campus activities"],
+        admission:"Applicants must meet the entry and language criteria for the specific program. Prepare the relevant prior qualification, complete transcripts, passport, language evidence, study plan and recommendations or other materials if requested.",
+        language:"Program language differs by school and degree. Verify whether the chosen program is taught in English, Chinese or a combination.",
+        scholarship:"Eligible international applicants may investigate government and university funding schemes. Do not treat scholarship availability or coverage as guaranteed.",
+        campusNotes:"SJTU has multiple campuses and schools in Shanghai. The program's campus matters for accommodation, travel and facilities, so confirm it before accepting an offer."
       },
       {
-        id:"zju", name:"Zhejiang University", short:"ZJU", rank:47, city:"Hangzhou",
-        fields:["Computer Science","Engineering","Agriculture","Biotechnology","Management"],
+        id:"zju", name:"Zhejiang University", short:"ZJU", rank:"47", city:"Hangzhou",
+        image:"https://static.comunicae.com/photos/notas/1262447/zju-2.jpg",
+        imageCredit:"Campus image: Zhejiang University entrance, published by Comunicae",
+        fields:["Computer Science","Engineering","Agriculture & Life Sciences","Medicine","Biotechnology","Management"],
         categories:["computer","engineering","medicine","business","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"A large research university spanning technology, engineering, life sciences, and management.",
-        facilities:"Research laboratories, innovation centers, libraries, medical facilities and student services.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://iczu.zju.edu.cn/admissionsen/"
+        summary:"A broad research university with strengths across engineering, computing, life sciences, agriculture, medicine, and management.",
+        overview:"Zhejiang University is a major research university based in Hangzhou, Zhejiang Province. Its academic breadth includes engineering and technology, sciences, life sciences, medicine, agriculture and management.",
+        programs:["Computer science, software and information technology","Engineering and materials science","Agriculture, biotechnology and life sciences","Medicine and health-related fields","Economics, management and interdisciplinary research"],
+        facilities:["Research laboratories and innovation facilities","Libraries and academic learning spaces","Medical and life-science research facilities","Student services across multiple campuses"],
+        admission:"Applicants generally need the prior qualification appropriate to their intended degree. Academic records, language proficiency, a study plan, recommendations, tests or interviews may be required according to the program's current guide.",
+        language:"English-taught options exist in selected programs; many programs may require Chinese. Check the exact program and campus.",
+        scholarship:"Review current Chinese Government Scholarship, provincial/city and university funding opportunities. Eligibility and award terms change by intake.",
+        campusNotes:"Based in Hangzhou, Zhejiang Province, with multiple campuses. Check the program location and whether the department accepts international students at the intended degree level."
       },
       {
-        id:"nju", name:"Nanjing University", short:"NJU", rank:90, city:"Nanjing",
-        fields:["Physics","Chemistry","Software Engineering","Environment","Economics"],
-        categories:["science","computer","engineering","business"],
+        id:"nju", name:"Nanjing University", short:"NJU", rank:"=90", city:"Nanjing",
+        image:"https://www.nju.edu.cn/images/266.jpg",
+        imageCredit:"Campus image: Nanjing University main entrance, Nanjing University website",
+        fields:["Physics & Chemistry","Software Engineering","Environmental Science","Economics","Humanities","Social Sciences"],
+        categories:["science","computer","engineering","business","social"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Known for scientific research, environmental studies, software, and humanities disciplines.",
-        facilities:"Scientific laboratories, research centers, libraries and international student support.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://hwxy.nju.edu.cn/English/"
+        summary:"A comprehensive research university with recognized strengths in natural sciences, environment, software, and humanities.",
+        overview:"Nanjing University is a comprehensive research institution in Nanjing, Jiangsu Province. Its fields span fundamental sciences, environmental studies, computing, economics, and humanities.",
+        programs:["Physics, chemistry, mathematics and astronomy-related sciences","Environmental science and earth sciences","Software engineering and computing","Economics, management and social sciences","Humanities and language-related disciplines"],
+        facilities:["Scientific laboratories and research institutes","Libraries and specialist collections","Academic buildings and student learning spaces","International student services, subject to program"],
+        admission:"Check the international admissions guide for the chosen school. Applicants usually submit prior academic qualifications, transcripts, passport information, language evidence and requested study plans or recommendations.",
+        language:"Teaching language and language-test requirements vary by program. Confirm whether the intended degree is available to international students in English or requires Chinese.",
+        scholarship:"Government and university awards may be available for qualifying students. Verify the current application channel, deadline and coverage.",
+        campusNotes:"Located in Nanjing, a historic city and provincial education hub. Campus and facilities vary by department, so confirm the teaching location."
       },
       {
-        id:"ustc", name:"University of Science and Technology of China", short:"USTC", rank:134, city:"Hefei",
-        fields:["Physics","Quantum Science","AI","Mathematics","Materials Science"],
+        id:"ustc", name:"University of Science and Technology of China", short:"USTC", rank:"=134", city:"Hefei",
+        image:"https://www.topuniversities.com/sites/default/files/profiles-slideshow/294534/2-1739786682.jpg",
+        imageCredit:"Campus image: University of Science and Technology of China profile photo, QS",
+        fields:["Physics","Quantum Science","Mathematics","Chemistry","AI & Computing","Materials Science"],
         categories:["science","computer","engineering"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"A research-focused institution with strengths in fundamental sciences and advanced technology.",
-        facilities:"Advanced science laboratories, research institutes and technology facilities.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://ic.ustc.edu.cn/en"
+        summary:"A science-focused research university known for fundamental sciences, advanced technology, and research-intensive study.",
+        overview:"The University of Science and Technology of China (USTC) is based in Hefei, Anhui Province. It is especially suitable for students interested in science, mathematics, computing and research-oriented technology fields.",
+        programs:["Physics, chemistry and mathematics","Quantum information and related research areas","Computer science, AI and information technology","Materials science and engineering","Interdisciplinary scientific research"],
+        facilities:["Advanced science and engineering laboratories","Research institutes and specialist centers","Libraries and academic study spaces","Research-led teaching environments"],
+        admission:"Selection can be academically demanding, especially for research-focused subjects. Prepare strong academic transcripts, the correct prior degree, language evidence and requested statements, references or research materials.",
+        language:"Language requirements vary by program and degree level. Check the international program list carefully before applying.",
+        scholarship:"Check the current government and university scholarship routes. Funding is competitive and may be tied to degree level or academic performance.",
+        campusNotes:"Located in Hefei, Anhui Province. USTC is particularly research-oriented; applicants should check faculty fit and research opportunities for graduate study."
       },
       {
-        id:"tongji", name:"Tongji University", short:"TJU", rank:146, city:"Shanghai",
-        fields:["Civil Engineering","Architecture","Urban Planning","Transport","Environment"],
+        id:"tongji", name:"Tongji University", short:"TJU", rank:"146", city:"Shanghai",
+        image:"https://photo.tongji.edu.cn/readStorage/9B453AFC40E63F40037E6652BAFC53C4/small",
+        imageCredit:"Campus image: Tongji University central campus, Tongji University photo archive",
+        fields:["Civil Engineering","Architecture","Urban Planning","Transportation","Environment","Design"],
         categories:["engineering","architecture","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"A notable option for civil engineering, architecture, urban planning, and transport-related fields.",
-        facilities:"Engineering laboratories, design facilities, research centers and student services.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://study.tongji.edu.cn/en/"
+        summary:"Particularly relevant for civil engineering, architecture, urban planning, transportation, environmental engineering, and design.",
+        overview:"Tongji University is a Shanghai-based university with strong visibility in engineering and built-environment fields, including architecture, civil engineering, urban planning and transport-related disciplines.",
+        programs:["Civil and structural engineering","Architecture and urban/rural planning","Transportation and automotive-related disciplines","Environmental science and engineering","Design and selected medical/science disciplines"],
+        facilities:["Engineering laboratories and testing facilities","Architecture and design studios","Urban planning and transport research facilities","Libraries and campus learning services"],
+        admission:"Check portfolio requirements for design or architecture-related programs. Other programs may require academic transcripts, prior degrees, language scores, study plans, recommendations or interviews.",
+        language:"Language of instruction varies. Design studios, professional programs and research degrees may have different language and portfolio requirements.",
+        scholarship:"Review current government, Shanghai municipal and university scholarship opportunities. Check eligibility and whether funding covers tuition, housing or living costs.",
+        campusNotes:"Located in Shanghai. Program-specific campus, studio access and laboratory arrangements should be confirmed before enrollment."
       },
       {
-        id:"whu", name:"Wuhan University", short:"WHU", rank:165, city:"Wuhan",
-        fields:["Surveying","Remote Sensing","Computer Science","Law","Medicine"],
+        id:"whu", name:"Wuhan University", short:"WHU", rank:"=165", city:"Wuhan",
+        image:"https://q7.itc.cn/q_70/images03/20250717/35f559f2d96e453abd165d536b32a6ca.jpeg",
+        imageCredit:"Campus image: Wuhan University spring campus, image published by Sohu",
+        fields:["Surveying & Remote Sensing","Geographic Information Science","Computer Science","Law","Medicine","Water Resources"],
         categories:["engineering","computer","social","medicine","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Recognized for geospatial sciences, remote sensing, law, computing, and medical education.",
-        facilities:"Geospatial research, laboratories, libraries, medical education and accommodation options.",
-        language:"Program-specific; check English/Chinese teaching options.",
-        official:"https://admission.whu.edu.cn/en"
+        summary:"Known for geospatial sciences, surveying and remote sensing, alongside law, computing, water resources, and medicine.",
+        overview:"Wuhan University is a comprehensive research university in Wuhan, Hubei Province. It is a notable option for geospatial technologies and surveying, while also offering a broad range of other academic fields.",
+        programs:["Surveying, mapping, remote sensing and GIS","Computer science and information technology","Water resources and hydraulic engineering","Law, economics and social sciences","Medicine and life sciences"],
+        facilities:["Geospatial research and mapping facilities","Scientific laboratories and libraries","Medical education and research facilities","Campus services and student activity spaces"],
+        admission:"Entry criteria differ by department and degree. Applicants should prepare academic qualifications, transcripts, language evidence, passport and any program-specific study plan, references or assessment results.",
+        language:"Check the current international program list for teaching language. Some specialist programs may require Chinese proficiency.",
+        scholarship:"Government, university and local funding options may be available for eligible students. Always verify the current application route and award conditions.",
+        campusNotes:"Located in Wuhan, a major education and transport hub in central China. The university's landscape is well known, but admission should be based on academic fit and program details."
       },
       {
-        id:"hit", name:"Harbin Institute of Technology", short:"HIT", rank:190, city:"Harbin",
-        fields:["Aerospace","Robotics","AI","Mechanical Engineering","Materials Science"],
+        id:"hit", name:"Harbin Institute of Technology", short:"HIT", rank:"190", city:"Harbin",
+        image:"https://news.hit.edu.cn/_upload/article/images/ea/1e/f2b1f2d14b5cb0adb6ec59b6d1df/7758c708-941c-48de-82c7-e2c0419f46cb.jpg",
+        imageCredit:"Campus image: Harbin Institute of Technology main building, HIT news site",
+        fields:["Aerospace Engineering","Robotics","AI & Computing","Mechanical Engineering","Civil Engineering","Materials Science"],
         categories:["engineering","computer","science"],
         degrees:["Bachelor's","Master's","PhD"],
-        summary:"Technology-focused university with strong engineering, aerospace, robotics, and materials research.",
-        facilities:"Engineering and robotics labs, technology research facilities and student accommodation options.",
-        language:"Program-specific; campus and program availability can differ.",
-        official:"https://studyathit.hit.edu.cn/"
+        summary:"A technology-focused institution with strong engineering, aerospace, robotics, materials, and computing research.",
+        overview:"Harbin Institute of Technology (HIT) is known for engineering and technology. It has campuses in Harbin, Weihai and Shenzhen, and program availability can differ by campus.",
+        programs:["Aerospace and astronautics-related engineering","Robotics, automation and AI","Mechanical, civil and electrical engineering","Materials science and manufacturing","Computer science and applied research"],
+        facilities:["Engineering, robotics and technology laboratories","Research centers and specialist institutes","Academic libraries and student services","Campus accommodation options, subject to availability"],
+        admission:"Applicants should identify the correct HIT campus and program before applying. Academic certificates, transcripts, language evidence and program-specific documents or interviews may be required.",
+        language:"Teaching language and requirements depend on program and campus. Confirm the exact campus, degree level and international student eligibility.",
+        scholarship:"Check current HIT, government and local scholarship calls. Award availability and coverage can differ by campus, degree and intake.",
+        campusNotes:"HIT has campuses in Harbin, Weihai and Shenzhen. These locations have different programs and environments; the campus attached to an offer matters."
       }
     ];
 
@@ -565,25 +695,41 @@
       showToast.timer = window.setTimeout(() => toast.classList.remove("show"), 2800);
     }
 
+    const universityDialog = document.getElementById("universityDialog");
+    const universityDialogContent = document.getElementById("universityDialogContent");
+
+    function safeText(value) {
+      return String(value).replace(/[&<>"']/g, char => ({
+        "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+      }[char]));
+    }
+
     function cardMarkup(u) {
+      const image = safeText(u.image);
+      const imageAlt = `${u.name} campus`;
       return `
         <article class="university-card">
+          <button class="uni-photo-button" type="button" data-open-id="${u.id}" aria-label="View full details for ${u.name}">
+            <img class="uni-photo" src="${image}" alt="${imageAlt}" loading="lazy" referrerpolicy="no-referrer"
+              onerror="this.hidden=true;this.nextElementSibling.classList.add('visible')">
+            <span class="uni-photo-fallback" aria-hidden="true">${u.name}<br>Campus photo unavailable</span>
+          </button>
           <div class="uni-top">
             <div class="uni-identity">
               <div class="uni-monogram" aria-hidden="true">${u.short}</div>
               <div><h3 class="uni-title">${u.name}</h3><div class="uni-city">📍 ${u.city}, China</div></div>
             </div>
-            <span class="rank-pill">QS #${u.rank}</span>
+            <span class="rank-pill">QS ${u.rank}</span>
           </div>
           <p class="uni-summary">${u.summary}</p>
-          <div class="tag-list">${u.fields.map(f => `<span class="tag">${f}</span>`).join("")}</div>
+          <div class="tag-list">${u.fields.slice(0,5).map(f => `<span class="tag">${f}</span>`).join("")}</div>
           <div class="uni-meta">
-            <div class="meta-box"><small>Degree levels</small><span>Bachelor's · Master's · PhD*</span></div>
-            <div class="meta-box"><small>Teaching language</small><span>Program-specific</span></div>
+            <div class="meta-box"><small>Degree pathways</small><span>Bachelor's · Master's · PhD*</span></div>
+            <div class="meta-box"><small>Teaching language</small><span>Varies by program</span></div>
           </div>
           <div class="uni-actions">
             <label class="compare-check"><input type="checkbox" class="compare-input" data-id="${u.id}" ${selected.has(u.id) ? "checked" : ""} aria-label="Compare ${u.name}"> Add to compare</label>
-            <a class="btn btn-outline btn-small" href="${u.official}" target="_blank" rel="noopener">Official admissions ↗</a>
+            <button class="btn btn-gold btn-small details-button" type="button" data-open-id="${u.id}">View full details ↗</button>
           </div>
         </article>`;
     }
@@ -593,7 +739,7 @@
       const field = fieldFilter.value;
       const degree = degreeFilter.value;
       return universities.filter(u => {
-        const text = [u.name, u.city, u.summary, ...u.fields].join(" ").toLowerCase();
+        const text = [u.name, u.city, u.summary, u.overview, ...u.fields, ...u.programs].join(" ").toLowerCase();
         const matchesQuery = !query || text.includes(query);
         const matchesField = !field || u.categories.includes(field);
         const matchesDegree = !degree || u.degrees.includes(degree);
@@ -624,6 +770,57 @@
           comparePanel.hidden = true;
         });
       });
+      grid.querySelectorAll("[data-open-id]").forEach(button => {
+        button.addEventListener("click", () => openUniversityDetails(button.dataset.openId));
+      });
+    }
+
+    function listMarkup(items) {
+      return `<ul>${items.map(item => `<li>${safeText(item)}</li>`).join("")}</ul>`;
+    }
+
+    function openUniversityDetails(id) {
+      const u = universities.find(item => item.id === id);
+      if (!u) return;
+      universityDialogContent.innerHTML = `
+        <section class="detail-hero">
+          <div class="detail-image-wrap">
+            <img class="detail-image" src="${safeText(u.image)}" alt="${safeText(u.name)} campus photograph" referrerpolicy="no-referrer"
+              onerror="this.hidden=true;this.nextElementSibling.classList.add('visible')">
+            <div class="detail-image-fallback" aria-hidden="true">${safeText(u.name)}<br>Campus photo unavailable</div>
+          </div>
+          <div>
+            <div class="detail-kicker">University profile · QS World University Rankings 2027</div>
+            <h2 class="detail-title">${safeText(u.name)}</h2>
+            <div class="detail-location">📍 ${safeText(u.city)}, China · QS global rank ${safeText(u.rank)}</div>
+            <p class="detail-overview">${safeText(u.overview)}</p>
+            <div class="detail-facts">
+              <div class="detail-fact"><small>Degree pathways</small><strong>Bachelor's, Master's, PhD*</strong></div>
+              <div class="detail-fact"><small>Language</small><strong>${safeText(u.language)}</strong></div>
+              <div class="detail-fact"><small>Study profile</small><strong>Research and academic programs</strong></div>
+              <div class="detail-fact"><small>International applicants</small><strong>Program-specific eligibility</strong></div>
+            </div>
+            <p class="uni-photo-caption" style="margin-top:12px">${safeText(u.imageCredit)}. Photo may be subject to the original publisher's terms.</p>
+          </div>
+        </section>
+        <section class="detail-content">
+          <div class="detail-content-grid">
+            <article class="detail-block"><h4>Popular study areas</h4>${listMarkup(u.programs)}</article>
+            <article class="detail-block"><h4>Campus & facilities</h4>${listMarkup(u.facilities)}</article>
+            <article class="detail-block"><h4>Admission requirements</h4><p>${safeText(u.admission)}</p></article>
+            <article class="detail-block"><h4>Teaching language</h4><p>${safeText(u.language)}</p></article>
+            <article class="detail-block"><h4>Scholarship pathways</h4><p>${safeText(u.scholarship)}</p></article>
+            <article class="detail-block"><h4>Typical academic qualification</h4><ul><li><strong>Bachelor's:</strong> completed HSC or equivalent secondary education.</li><li><strong>Master's:</strong> a recognized relevant bachelor's degree.</li><li><strong>PhD:</strong> typically a relevant master's degree and research preparation.</li><li>Minimum grades and any direct-entry exceptions are program-specific.</li></ul></article>
+            <article class="detail-block"><h4>Documents to prepare</h4><ul><li>Valid passport and recent photograph.</li><li>Academic certificates and complete transcripts.</li><li>IELTS/TOEFL or HSK evidence, if required.</li><li>Personal statement or study plan.</li><li>CV, recommendations and research proposal for relevant postgraduate programs.</li><li>Entrance-test, medical, police-clearance or financial documents if requested.</li></ul></article>
+            <article class="detail-block"><h4>Location & campus notes</h4><p>${safeText(u.campusNotes)}</p></article>
+          </div>
+          <p class="notice detail-footnote">Important: this profile is an informative summary, not an admission offer. Degree availability, language of instruction, entry scores, required tests, tuition, scholarships, campus facilities and deadlines change by program and intake. Confirm the current requirements before applying. *The university offers multiple degree levels, but not every subject is available at every level or to international students.</p>
+        </section>`;
+      if (typeof universityDialog.showModal === "function") {
+        universityDialog.showModal();
+      } else {
+        universityDialog.setAttribute("open", "");
+      }
     }
 
     function renderComparison() {
@@ -633,19 +830,36 @@
       }
       const items = universities.filter(u => selected.has(u.id));
       const rows = [
-        ["QS global rank", u => `#${u.rank}`],
+        ["QS global rank", u => u.rank],
         ["City", u => u.city],
         ["Popular fields", u => u.fields.join(", ")],
         ["General strengths", u => u.summary],
-        ["Facilities to explore", u => u.facilities],
-        ["Degree levels", u => "Bachelor's, Master's and PhD pathways exist at the university; availability varies by program."],
+        ["Programs to explore", u => u.programs.join(", ")],
+        ["Facilities", u => u.facilities.join(", ")],
+        ["Degree pathways", u => "Bachelor's, Master's and PhD options may be available; each program has its own entry rules."],
         ["Teaching language", u => u.language],
-        ["Official admissions", u => `<a href="${u.official}" target="_blank" rel="noopener" style="color:var(--gold-light);text-decoration:underline">Visit official page ↗</a>`]
+        ["Scholarships", u => u.scholarship]
       ];
-      comparisonTable.innerHTML = `<table><thead><tr><th>Comparison</th>${items.map(u => `<th>${u.name}</th>`).join("")}</tr></thead><tbody>${rows.map(([label, value]) => `<tr><td>${label}</td>${items.map(u => `<td>${value(u)}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
+      comparisonTable.innerHTML = `<table><thead><tr><th>Comparison</th>${items.map(u => `<th>${safeText(u.name)}</th>`).join("")}</tr></thead><tbody>${rows.map(([label, value]) => `<tr><td>${safeText(label)}</td>${items.map(u => `<td>${safeText(value(u))}</td>`).join("")}</tr>`).join("")}</tbody></table>`;
       comparePanel.hidden = false;
       comparePanel.scrollIntoView({behavior:"smooth", block:"start"});
     }
+
+    document.getElementById("closeUniversityDialog").addEventListener("click", () => {
+      if (typeof universityDialog.close === "function") universityDialog.close();
+      else universityDialog.removeAttribute("open");
+    });
+    universityDialog.addEventListener("click", event => {
+      if (event.target === universityDialog) {
+        if (typeof universityDialog.close === "function") universityDialog.close();
+        else universityDialog.removeAttribute("open");
+      }
+    });
+    document.addEventListener("keydown", event => {
+      if (event.key === "Escape" && universityDialog.open && typeof universityDialog.close === "function") {
+        universityDialog.close();
+      }
+    });
 
     searchInput.addEventListener("input", renderUniversities);
     fieldFilter.addEventListener("change", renderUniversities);

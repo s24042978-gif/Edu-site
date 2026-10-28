@@ -1,36 +1,46 @@
-# China Academic World — Railway-ready website
+# China Academic World — Updated Railway Deployment Package
 
-This project packages the website as a small Node.js static server so it can be deployed from GitHub to Railway.
+This is the updated GitHub + Railway-ready website.
+
+## What's updated
+- Removed university-specific "visit official/main site" buttons.
+- Added campus photographs for all 10 listed universities.
+- Clicking a university photo or **View full details** opens an internal profile panel.
+- Each profile includes overview, popular study areas, facilities, typical academic qualifications, admission guidance, document checklist, teaching-language notes, scholarship pathways, and campus/location notes.
+- Search, subject/degree filters, and side-by-side comparison remain available.
+- The website is responsive for mobile and desktop.
 
 ## Files
-- `index.html` — the website
-- `server.js` — serves the website on Railway's assigned `PORT`
-- `package.json` — start command (`npm start`)
+- `index.html` — website UI and university information
+- `server.js` — Node.js static server compatible with Railway's assigned `PORT`
+- `package.json` — `npm start` command
 - `railway.json` — Railway build and health-check settings
-- `.gitignore` — ignores local-only files
+- `.gitignore` — local-only files
+- `README.md` — this guide
 
 ## Run locally
-Install Node.js 18 or newer, then run:
+Install Node.js 18 or newer, open a terminal in this folder, and run:
 
 ```bash
 npm start
 ```
 
-Open `http://localhost:3000`.
+Then open `http://localhost:3000`.
 
 ## Deploy with GitHub + Railway
 1. Download and extract this ZIP.
-2. Create a new GitHub repository.
-3. Upload the **contents** of this folder to the repository root. `index.html`, `package.json`, `server.js`, and `railway.json` should be at the top level, not inside another nested folder.
-4. Push/commit the files to GitHub.
+2. Create a GitHub repository.
+3. Upload the **contents** of this folder to the repository root. `index.html`, `server.js`, `package.json`, and `railway.json` should be at the root, not nested inside another folder.
+4. Commit/push the files.
 5. Sign in to Railway and choose **New Project → Deploy from GitHub Repo**.
-6. Connect the repository and start the deployment.
-7. When deployment succeeds, open the Railway service's **Settings → Networking** and select **Generate Domain**.
-8. Open the generated `https://....up.railway.app` domain.
+6. Connect the repository and deploy.
+7. In the Railway service, open **Settings → Networking → Generate Domain**.
+8. Open the generated HTTPS domain.
 
-Railway reads the `npm start` script and uses its assigned `PORT`. No extra environment variables or external packages are required.
+Railway uses the `npm start` command and the assigned `PORT`. No external Node packages are needed.
 
-## Before publishing
-- Check the contact details in the `#contact` section of `index.html`.
-- Confirm all university details, rankings, program availability, scholarship information, and deadlines against official sources.
-- This is an informational website, not an official university or visa authority website.
+## Important information
+- Campus photographs are loaded from image URLs hosted by universities or image publishers. The visitor needs internet access to see them. If a publisher blocks external image loading, the profile shows a designed fallback instead.
+- University program availability, teaching language, admission tests, eligibility, tuition, scholarships and deadlines differ by intake and department. The details are general guidance; verify requirements before applying.
+- Rankings shown are overall QS World University Rankings 2027 ranks, not subject-specific ranks. A leading `=` indicates a tied rank.
+- Before publishing, verify the business contact details and confirm you have permission to use the China Academic World name and branding.
